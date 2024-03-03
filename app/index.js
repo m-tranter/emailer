@@ -12,9 +12,6 @@ const transporter = nodemailer.createTransport({
   },
 });
 
-console.log(process.env.MY_PWD);
-console.log(process.env.EMAIL);
-
 async function sendMsg(to, subject, text, res) {
   const mailOptions = { from: process.env.EMAIL, to, subject, text };
   transporter.sendMail(mailOptions, function (error, info) {
