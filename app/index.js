@@ -47,6 +47,6 @@ app.use(cors());
 app.use(myLogger);
 
 app.post('/send', async function (req, res) {
-  console.log(req.body):
+  console.log(req.body);
   sendMsg(req.body.to, req.body.subject, req.body.text, res);
 });
