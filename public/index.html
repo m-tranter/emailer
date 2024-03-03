@@ -53,7 +53,7 @@
       const send = () => {
         toggle(spinner);
         console.log(to.value);
-        fetch('/', {
+        fetch('/send', {
           method: 'post',
           body: JSON.stringify({
             to: to.value,
@@ -66,10 +66,10 @@
         })
           .then((response) => {
             if (!response.ok) {
-              msg.innerText = 'Something went wrong.';
+              msg.innerHTML = 'Something went wrong.';
               throw 'Invalid password';
             }
-            msg.innerText = 'Message sent.';
+            msg.innerHTML = 'Message sent.';
           })
           .catch((error) => {
             console.log(error);
