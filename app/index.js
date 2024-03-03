@@ -44,8 +44,9 @@ const myLogger = function (req, _, next) {
 app.use(express.json({ limit: '200kb' }));
 app.use(express.static('public'));
 app.use(cors());
-//app.use(myLogger);
+app.use(myLogger);
 
-app.post('/', async function (req, res) {
+app.post('/send', async function (req, res) {
+  console.log(req.body):
   sendMsg(req.body.to, req.body.subject, req.body.text, res);
 });
