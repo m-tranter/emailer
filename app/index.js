@@ -1,5 +1,5 @@
 'use strict';
-//import {} from 'dotenv/config';
+import {} from 'dotenv/config';
 import express from 'express';
 import cors from 'cors';
 import nodemailer from 'nodemailer';
@@ -12,8 +12,11 @@ const transporter = nodemailer.createTransport({
   },
 });
 
-async function sendMsg(to, subject, text, res) {
-  const mailOptions = { from: process.env.EMAIL, to, subject, text };
+async function sendMsg(subject, text, auth, res) {
+  if (!auth === process.env.AUTH) {
+    res.status(400).send();
+  }
+  const mailOptions = { from: process.env.EMAIL, to: process.env.TO, subject, text };
   transporter.sendMail(mailOptions, function (error, info) {
     if (error) {
       console.log(error);
@@ -24,7 +27,6 @@ async function sendMsg(to, subject, text, res) {
     }
   });
 }
-
 
 const port = process.env.PORT || 3001;
 
@@ -48,5 +50,5 @@ app.use(myLogger);
 
 app.post('/send', async function (req, res) {
   console.log(req.body);
-  sendMsg(req.body.to, req.body.subject, req.body.text, res);
+  sendMsg(req.body.subject, req.body.text, req.body.auth, res);
 });
